@@ -1,0 +1,11 @@
+# Entornos de desarrollo y sistema operativo
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+.vscode/
+.idea/
+
+# Logs temporales
+*.log
+*.tmp

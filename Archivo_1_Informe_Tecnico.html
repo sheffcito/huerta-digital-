@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico y de Escalamiento - La Huerta Digital 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #065f46;
+            --primary-light: #ecfdf5;
+            --primary-border: #a7f3d0;
+            --secondary: #0f766e;
+            --dark: #1e293b;
+            --text: #334155;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --bg-light: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: #f1f5f9;
+            line-height: 1.6;
+            font-size: 10pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: #ffffff;
+            padding: 3rem 4rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            border-radius: 8px;
+        }
+
+        /* HEADER / PORTADA COMPACTA */
+        .header-box {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .logo-tag {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 8pt;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid var(--primary-border);
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 20pt;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 11pt;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .meta-card {
+            text-align: right;
+            font-size: 8pt;
+            color: var(--muted);
+            line-height: 1.4;
+            background: var(--bg-light);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .meta-card strong {
+            color: var(--dark);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 13pt;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            color: var(--dark);
+            font-size: 10.5pt;
+            font-weight: 700;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 0.85rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* TABLAS PROFESIONALES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem 0;
+            font-size: 8.5pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            padding: 0.55rem 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 7.5pt;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fafbfd;
+        }
+
+        .badge-status {
+            font-size: 7.5pt;
+            font-weight: 700;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        /* CAJAS DE ALERTA Y CÓDIGO */
+        .callout {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 0.85rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 9pt;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8pt;
+            background-color: #f1f5f9;
+            color: #b91c1c;
+            padding: 0.15rem 0.35rem;
+            border-radius: 3px;
+            border: 1px solid #e2e8f0;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.85rem;
+            border-radius: 6px;
+            font-size: 8pt;
+            overflow-x: auto;
+            margin: 0.85rem 0;
+            line-height: 1.4;
+            page-break-inside: avoid;
+        }
+
+        .qa-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--secondary);
+            border-radius: 4px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1rem;
+            page-break-inside: avoid;
+        }
+
+        .qa-card h4 {
+            color: var(--dark);
+            font-size: 9.5pt;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: #ffffff;
+                font-size: 9pt;
+            }
+
+            .document-container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+
+    <!-- BOTÓN DE IMPRESIÓN / GUARDAR COMO PDF -->
+    <div class="no-print" style="margin-bottom: 1.5rem; display: flex; justify-content: flex-end; gap: 10px;">
+        <button onclick="window.print()" style="background: #065f46; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 9pt; cursor: pointer;">
+            🖨️ Imprimir / Guardar como PDF
+        </button>
+    </div>
+
+    <!-- ENCABEZADO -->
+    <div class="header-box">
+        <div>
+            <div class="logo-tag">Informe Técnico de Ingeniería & Escalamiento</div>
+            <h1>La Huerta Digital 2.0</h1>
+            <div class="subtitle">Despliegue Multi-Contenedor, Persistencia VDI UUID y Monitoreo Proactivo</div>
+        </div>
+        <div class="meta-card">
+            <div><strong>Caso:</strong> Productores Agrícolas</div>
+            <div><strong>Agricultores:</strong> D. Pedro, Dña. Rosa, D. Manuel, Dña. Carmen</div>
+            <div><strong>SO / Entorno:</strong> Ubuntu Server (Red Puente)</div>
+            <div><strong>Evaluación:</strong> Laboratorio Final Nube 2026</div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 1: DIAGNÓSTICO -->
+    <h2>1. Diagnóstico Situacional (Versión 1.0 vs. Versión 2.0)</h2>
+    <p>
+        La cooperativa agrícola de productores locales integrada por <strong>Don Pedro</strong> (Papas y Cebollas), <strong>Doña Rosa</strong> (Tomates y Espinacas), <strong>Don Manuel</strong> (Lechuga) y <strong>Doña Carmen</strong> (Zanahorias) requería una modernización urgente de su plataforma tecnológica. La versión 1.0 consistía en un prototipo monolítico tradicional alojado en una única máquina sin aislamiento de servicios, sin persistencia desacoplada y sin supervisión de disponibilidad.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Criterio Técnico</th>
+                <th>Versión 1.0 (Legacy Monolítica)</th>
+                <th>Versión 2.0 (Docker Multi-Contenedor)</th>
+                <th>Impacto Operativo / Beneficio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Aislamiento</strong></td>
+                <td>Apache y MySQL compartían sistema de archivos del host sin control de recursos.</td>
+                <td>5 microservicios desacoplados mediante contenedores Docker Compose v2.</td>
+                <td>Fallas en un contenedor no arrastran a los demás servicios del servidor.</td>
+            </tr>
+            <tr>
+                <td><strong>Almacenamiento</strong></td>
+                <td>Fotos en <code>/var/www/html/imagenes</code> dentro del disco raíz de la VM.</td>
+                <td>Segundo disco virtual VDI de 8 GB formateado en ext4 montado por UUID en <code>/mnt/huerta_fotos</code>.</td>
+                <td>Evita la saturación del disco raíz (<em>Disk Exhaustion</em>) y protege el sistema operativo.</td>
+            </tr>
+            <tr>
+                <td><strong>Seguridad Web</strong></td>
+                <td>Servidor web con permisos globales de lectura/escritura sobre las fotos.</td>
+                <td>Bind mount montado en modo solo lectura (<code>:ro</code>) en el contenedor web.</td>
+                <td>Principio de mínimo privilegio: previene inyección de web shells y ataques RCE.</td>
+            </tr>
+            <tr>
+                <td><strong>Gestión de Fotos</strong></td>
+                <td>Copia manual por línea de comandos SSH en la máquina virtual.</td>
+                <td>Servidor vsftpd en Modo Pasivo (puertos 21 y 21100-21110) directo al disco secundario.</td>
+                <td>Carga remota amigable y fluida para los campesinos mediante clientes FTP estándar.</td>
+            </tr>
+            <tr>
+                <td><strong>Gestión de BD</strong></td>
+                <td>Solo usuario <code>root</code> compartido sin restricciones para auditorías.</td>
+                <td>Usuario operativo <code>huerta_user</code> + usuario de solo lectura <code>huerta_lector</code>.</td>
+                <td>Estudiantes y auditores pueden verificar precios sin riesgo de borrar o alterar registros.</td>
+            </tr>
+            <tr>
+                <td><strong>Supervisión</strong></td>
+                <td>Inexistente. Las caídas eran reportadas verbalmente por clientes del aula.</td>
+                <td>Uptime Kuma 2 con sondas automáticas HTTP (:80) y TCP (:3306) cada 20 segundos.</td>
+                <td>Detección proactiva inmediata de fallas diferenciadas y control riguroso de SLA.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SECCIÓN 2: DECISIONES TÉCNICAS -->
+    <h2>2. Decisiones Técnicas Justificadas</h2>
+    <div class="callout">
+        <div class="callout-title">Resumen de Decisiones de Arquitectura</div>
+        Se optó por una arquitectura contenerizada en Docker Compose sobre Ubuntu Server en Modo Puente, priorizando la persistencia estricta en un segundo disco VDI identificado por UUID en <code>/etc/fstab</code> y la supervisión en tiempo real con Uptime Kuma 2.
+    </div>
+
+    <ul>
+        <li><strong>Instalación Oficial Docker CE:</strong> Se implementó la paquetería oficial de Docker (<code>docker-ce</code>, <code>docker-ce-cli</code>, <code>containerd.io</code> y <code>docker-compose-plugin</code>) mediante el repositorio oficial de Docker firmado criptográficamente con llave GPG, garantizando compatibilidad nativa y actualizaciones continuas de seguridad.</li>
+        <li><strong>Hardening de Acceso Remoto (SSH en Puerto 43435 & UFW):</strong> Como medida de defensa en profundidad contra escaneos automatizados de fuerza bruta en el puerto estándar 22, se reconfiguró el demonio OpenSSH en el puerto no estándar <code>43435/tcp</code> y se securizó el host mediante el firewall de Linux <strong>UFW</strong>, permitiendo de manera explícita el nuevo puerto SSH junto a los puertos requeridos para los 5 microservicios (80, 8080, 3306, 3001, 21 y rango pasivo 21100-21110).</li>
+        <li><strong>Montaje Inmutable por UUID:</strong> La directiva <code>UUID=0e899f86-2d14-4e16-8a54-91e9c0236a36 /mnt/huerta_fotos ext4 defaults 0 2</code> en <code>/etc/fstab</code> garantiza que si el kernel de Linux reordena dinámicamente los buses de disco (ej. <code>/dev/sdb</code> convirtiéndose en <code>/dev/sdc</code> tras agregar periféricos), el sistema de archivos siempre se asociará a la ruta correcta, evitando caídas al modo de rescate durante el arranque.</li>
+        <li><strong>Contenedor FTP en Modo Pasivo (`PASV`):</strong> En entornos Dockerizados bajo redes de aula con NAT y cortafuegos, el modo activo falla porque el servidor no puede abrir conexiones entrantes hacia el cliente. Al fijar <code>PASV_ADDRESS</code> a la IP de la VM y restringir <code>PASV_MIN_PORT: 21100</code> y <code>PASV_MAX_PORT: 21110</code>, se garantiza que el tráfico de datos fluya sin bloqueos.</li>
+        <li><strong>Segregación de Roles en MySQL (RBAC):</strong> Se creó el usuario <code>huerta_lector</code> con sentencia <code>GRANT SELECT ON HUERTA_DIGITAL.*</code> para que terceros en el aula puedan validar datos sin privilegios destructivos (<code>DELETE</code>, <code>DROP</code> o <code>UPDATE</code>).</li>
+        <li><strong>Red Virtual en Modo Puente (Bridged):</strong> Permite que la máquina virtual actúe como un nodo de red física más en el switch del laboratorio, adquiriendo su propia IP pública del aula vía DHCP para permitir accesos simultáneos desde otros computadores.</li>
+    </ul>
+
+    <!-- SECCIÓN 3: ARQUITECTURA TÉCNICA -->
+    <div class="page-break"></div>
+    <h2>3. Arquitectura Técnica de los 5 Servicios</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Servicio</th>
+                <th>Contenedor</th>
+                <th>Imagen Base</th>
+                <th>Puertos Host:Contenedor</th>
+                <th>Volúmenes y Puntos de Montaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>web</strong></td>
+                <td><code>huerta_web</code></td>
+                <td><code>php:8.2-apache</code> (Custom)</td>
+                <td><code>80:80</code></td>
+                <td><code>./web/src:/var/www/html</code><br><code>/mnt/huerta_fotos/imagenes:/var/www/html/imagenes:ro</code></td>
+            </tr>
+            <tr>
+                <td><strong>db</strong></td>
+                <td><code>huerta_db</code></td>
+                <td><code>mysql:8.0</code></td>
+                <td><code>3306:3306</code></td>
+                <td><code>db_data:/var/lib/mysql</code><br><code>./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro</code></td>
+            </tr>
+            <tr>
+                <td><strong>phpmyadmin</strong></td>
+                <td><code>huerta_pma</code></td>
+                <td><code>phpmyadmin:latest</code></td>
+                <td><code>8080:80</code></td>
+                <td>Red interna Docker (vinculado al servicio <code>db</code>)</td>
+            </tr>
+            <tr>
+                <td><strong>ftp</strong></td>
+                <td><code>huerta_ftp</code></td>
+                <td><code>fauria/vsftpd</code></td>
+                <td><code>21:21</code><br><code>21100-21110:21100-21110</code></td>
+                <td><code>/mnt/huerta_fotos/imagenes:/home/vsftpd/productor/imagenes</code></td>
+            </tr>
+            <tr>
+                <td><strong>uptime-kuma</strong></td>
+                <td><code>huerta_kuma</code></td>
+                <td><code>louislam/uptime-kuma:2</code></td>
+                <td><code>3001:3001</code></td>
+                <td><code>uptime_data:/app/data</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
++--------------------------------------------------------------------------------------------------+
+| MÁQUINA VIRTUAL UBUNTU SERVER (MODO PUENTE - IP: 192.168.1.177)                                   |
+|                                                                                                  |
+| [Disco 1: /dev/sda1 (SO & Docker)]                  [Disco 2: /dev/sdb1 (VDI 8GB ext4)]          |
+|                                                     UUID en /etc/fstab -> /mnt/huerta_fotos      |
+|                                                                          |                       |
+|   +----------------------- RED DOCKER COMPOSE -----------------------+   |                       |
+|   |                                                                  |   |                       |
+|   |  +----------------+        +-----------------+                   |   | (Escritura RW)        |
+|   |  |   huerta_web   | <ro--  |   huerta_ftp    | <-----------------+---+                       |
+|   |  |   (Apache:80)  |        | (vsftpd:21+PASV)|                                               |
+|   |  +-------+--------+        +-----------------+                                               |
+|   |          | (PDO SQL)                                                                         |
+|   |          v                                                                                   |
+|   |  +----------------+        +-----------------+         +------------------+                  |
+|   |  |   huerta_db    | <----- |   huerta_pma    |         |   huerta_kuma    |                  |
+|   |  |  (MySQL:3306)  |        |    (PMA:8080)   |         |   (Kuma 2:3001)  |                  |
+|   |  +-------+--------+        +-----------------+         +----+--------+----+                  |
+|   |          ^                                                  |        |                       |
+|   |          |============== Sonda TCP :3306 ===================|        |                       |
+|   |          |============== Sonda HTTP :80 =============================|                       |
+|   +----------+-----------------------------------------------------------------------------------+
++--------------+-----------------------------------------------------------------------------------+
+               | Red Física del Aula (192.168.1.0/24)
+               +---> Clientes Web (HTTP :80) | Clientes FTP (:21) | Auditores MySQL (huerta_lector :3306)
+    </pre>
+
+    <!-- SECCIÓN 4: PLAN DE PRUEBAS -->
+    <h2>4. Plan de Pruebas y Validación de Disponibilidad</h2>
+    <p>Se llevó a cabo un riguroso plan de pruebas de integración para validar la resiliencia del sistema ante reinicios, fallos forzados y accesos no autorizados:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Prueba Técnica</th>
+                <th>Procedimiento</th>
+                <th>Criterio de Aceptación</th>
+                <th>Resultado Obtenido</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PR-01</strong></td>
+                <td><strong>Persistencia Post-Reboot</strong></td>
+                <td>Ejecución de <code>sudo reboot</code> en la VM.</td>
+                <td>Montaje automático de <code>/mnt/huerta_fotos</code> y levantamiento de 5 contenedores.</td>
+                <td>El sistema montó el VDI por UUID sin fallos; los 5 servicios iniciaron en <code>Up</code>.</td>
+                <td><span class="badge-status badge-green">SUPERADO</span></td>
+            </tr>
+            <tr>
+                <td><strong>PR-02</strong></td>
+                <td><strong>Prueba de Apagado Frío</strong></td>
+                <td>Ejecución de <code>sudo poweroff</code> y reinicio desde VirtualBox.</td>
+                <td>Conservación íntegra de la estructura de fotos y consistencia ext4.</td>
+                <td>Cero corrupción de datos; el catálogo web mostró todas las fotos de Don Pedro y Doña Rosa.</td>
+                <td><span class="badge-status badge-green">SUPERADO</span></td>
+            </tr>
+            <tr>
+                <td><strong>PR-03</strong></td>
+                <td><strong>Restricción Read-Only</strong></td>
+                <td>Ejecución de <code>touch</code> dentro de <code>huerta_web</code> en <code>/var/www/html/imagenes</code>.</td>
+                <td>Denegación de escritura inmediata por parte del kernel.</td>
+                <td>Arrojó <code>Read-only file system</code>, comprobando la inmunidad del volumen web.</td>
+                <td><span class="badge-status badge-green">SUPERADO</span></td>
+            </tr>
+            <tr>
+                <td><strong>PR-04</strong></td>
+                <td><strong>Seguridad huerta_lector</strong></td>
+                <td>Ejecución de <code>DELETE FROM productos WHERE id=1;</code> con usuario del aula.</td>
+                <td>Bloqueo de consulta por falta de privilegios DML.</td>
+                <td>Retornó <code>ERROR 1142: DELETE command denied to user 'huerta_lector'</code>.</td>
+                <td><span class="badge-status badge-green">SUPERADO</span></td>
+            </tr>
+            <tr>
+                <td><strong>PR-05</strong></td>
+                <td><strong>Detección de Caída Kuma</strong></td>
+                <td>Detención deliberada de base de datos con <code>docker compose stop db</code>.</td>
+                <td>Alerta visual en Uptime Kuma (TCP 3306 DOWN) en menos de 20s.</td>
+                <td>Sonda TCP pasó a rojo instantáneamente; retorno automático a verde con <code>start</code>.</td>
+                <td><span class="badge-status badge-green">SUPERADO</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- SECCIÓN 5: ESCALAMIENTO -->
+    <div class="page-break"></div>
+    <h2>5. Plan de Escalamiento Técnico (20 y 100 Productores)</h2>
+
+    <h3>5.1 Escenario A: Crecimiento a 20 Productores (Nivel Comunal)</h3>
+    <p>
+        Para soportar 20 productores agrícolas y ~120 referencias activas, la plataforma actual en una única VM con Ubuntu Server es plenamente viable con las siguientes adecuaciones técnicas:
+    </p>
+    <ul>
+        <li><strong>Almacenamiento:</strong> Reemplazo del VDI fijo de 8 GB por un volumen lógico con LVM (*Logical Volume Manager*) de 50 GB con redimensionamiento dinámico en caliente.</li>
+        <li><strong>Segregación FTP:</strong> Creación de cuentas FTP virtuales por agricultor vinculadas a carpetas aisladas (ej. <code>/mnt/huerta_fotos/imagenes/don_pedro/</code>) para evitar sobreescritura accidental entre productores.</li>
+        <li><strong>Rendimiento Cómputo:</strong> Activación del acelerador <code>OPcache</code> en PHP 8.2 para caching en memoria RAM de los scripts precompilados y asignación de 4 GB RAM / 2 vCPUs a la máquina virtual.</li>
+        <li><strong>Respaldos:</strong> Tarea automatizada con <code>crontab</code> que genera un dump diario de MySQL y sincroniza las fotos hacia un servidor NFS o almacenamiento externo.</li>
+    </ul>
+
+    <h3>5.2 Escenario B: Crecimiento a 100 Productores (Nivel Regional / Nube)</h3>
+    <p>
+        Con 100 productores distribuidos geográficamente y miles de transacciones concurrentes, se debe abandonar el esquema de máquina virtual única y migrar hacia una **arquitectura Cloud desacoplada de alta disponibilidad**:
+    </p>
+    <ul>
+        <li><strong>Almacenamiento de Objetos en la Nube (S3 / Spaces):</strong> Sustitución definitiva del disco VDI local por buckets de almacenamiento de objetos compatibles con S3 (ej. AWS S3 o DigitalOcean Spaces) con redundancia geográfica del 99.999999999%.</li>
+        <li><strong>Red de Distribución de Contenido (CDN):</strong> Despliegue de Cloudflare o AWS CloudFront con puntos de presencia en Santiago de Chile. El 85% de las peticiones de fotos de hortalizas se sirven desde la caché de borde (*Edge Cache*), garantizando tiempos de carga inferiores a 30 ms en sectores rurales.</li>
+        <li><strong>Base de Datos Relacional Gestionada:</strong> Implementación de Amazon RDS MySQL Multi-AZ con réplicas de lectura automáticas para balancear las consultas masivas del catálogo público.</li>
+        <li><strong>Orquestación Elástica:</strong> Contenedorización administrada con Docker Swarm o AWS ECS Fargate con auto-escalado horizontal de 2 a 10 nodos según demanda.</li>
+        <li><strong>Portal Web Móvil de Carga:</strong> Migración paulatina del cliente FTP clásico a una interfaz web progresiva (PWA) donde los campesinos suben las fotos directamente desde la cámara de su teléfono móvil con compresión automática a formato WebP.</li>
+    </ul>
+
+    <!-- SECCIÓN 6: PRESUPUESTO -->
+    <h2>6. Presupuesto Detallado en CLP con Cotizaciones Comerciales Reales</h2>
+    <p>
+        A continuación se desglosan tres alternativas comerciales calculadas al tipo de cambio observado en Chile (<strong>1 USD = 950 CLP</strong>):
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Alternativa / Modalidad</th>
+                <th>Detalle de Componentes y Capacidad</th>
+                <th>Proveedor Comercial</th>
+                <th>Inversión Inicial (CAPEX)</th>
+                <th>Costo Mensual (OPEX)</th>
+                <th>Costo Anual Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Opción A: On-Premise<br>(Servidor Físico Cooperativa)</strong></td>
+                <td>Servidor HP ProLiant ML30 Gen10+ (Xeon, 32GB RAM, 2x1TB NVMe RAID1) + NAS Synology 8TB + UPS APC 1500VA + Fibra Empresas 400M fija.</td>
+                <td>PC Factory Empresas / Movistar Corp Chile</td>
+                <td>$2.890.000 CLP</td>
+                <td>$158.000 CLP/mes<br>(Enlace + Mantención)</td>
+                <td>$4.786.000 CLP (Año 1)<br>$1.896.000 CLP (Año 2+)</td>
+            </tr>
+            <tr>
+                <td><strong>Opción B: Nube VPS Económica<br>(Recomendada 20 Productores)</strong></td>
+                <td>Droplet 4 vCPU, 8GB RAM, 160GB SSD + 100GB Block Storage + 250GB Spaces S3 + Backups diarios + Dominio .cl (NIC Chile).</td>
+                <td>DigitalOcean / NIC Chile</td>
+                <td>$0 CLP</td>
+                <td><strong>$70.220 CLP/mes</strong><br>($73.90 USD/mes)</td>
+                <td><strong>$842.630 CLP/año</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Opción C: Nube Enterprise AWS<br>(Recomendada 100 Productores)</strong></td>
+                <td>AWS EC2 t4g.xlarge en Santiago + AWS RDS MySQL Multi-AZ + 200GB S3 Standard + CloudFront CDN + Shield DDoS.</td>
+                <td>Amazon Web Services (Región Santiago)</td>
+                <td>$0 CLP</td>
+                <td><strong>$196.460 CLP/mes</strong><br>($206.80 USD/mes)</td>
+                <td><strong>$2.357.520 CLP/año</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout">
+        <div class="callout-title">Dictamen Económico de la Consultoría</div>
+        Para la fase de expansión inmediata (hasta 20 productores), se recomienda unánimemente la <strong>Opción B (DigitalOcean VPS)</strong> por su óptima relación costo/beneficio ($70.220 CLP mensuales sin inversión inicial). Al alcanzar los 100 productores, la <strong>Opción C (AWS Santiago)</strong> representa una cuota de apenas <strong>$1.965 CLP mensuales por productor</strong>, monto financiable con facilidad mediante una comisión menor del 0.5% en ventas.
+    </div>
+
+    <!-- SECCIÓN 7: PREGUNTAS TEÓRICAS -->
+    <div class="page-break"></div>
+    <h2>7. Respuestas a las 8 Preguntas Teóricas del Laboratorio</h2>
+
+    <div class="qa-card">
+        <h4>1. ¿Por qué es crítico montar el segundo disco virtual mediante su UUID en /etc/fstab en lugar de utilizar el nombre de dispositivo tradicional (/dev/sdb1)?</h4>
+        <p>En Linux, los identificadores <code>/dev/sdX</code> son asignados dinámicamente por <code>udev</code> en cada arranque. Si se conecta otro disco o cambia el orden de inicialización SATA, el disco de datos podría pasar de <code>/dev/sdb</code> a <code>/dev/sdc</code>. Si se usara el nombre tradicional, el sistema intentaría montar una partición errónea o el arranque de <code>systemd</code> fallará irrevocablemente, cayendo en modo de emergencia (<em>emergency shell</em>). El <strong>UUID (Universally Unique Identifier)</strong> es una firma de 128 bits inscrita en el superbloque ext4 que permanece inmutable, garantizando el montaje exacto y seguro tras cualquier reinicio.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>2. ¿Cuál es la diferencia técnica fundamental entre el modo de red Adaptador Puente (Bridged) y NAT en VirtualBox al publicar servicios para el aula?</h4>
+        <p>En <strong>Modo NAT</strong>, la VM queda en una subred privada aislada (ej. <code>10.0.2.0/24</code>) y el hipervisor oculta su tráfico mediante enmascaramiento; ningún equipo del aula puede conectarse a ella salvo que se configuren complejas reglas de <em>Port Forwarding</em> estáticas en el host anfitrión. En <strong>Modo Puente (Bridged)</strong>, la placa virtual se vincula directamente a la tarjeta de red física del anfitrión en capa 2, obteniendo una dirección IP propia del servidor DHCP del aula (ej. <code>192.168.1.177</code>). Esto permite que cualquier PC del laboratorio acceda directamente a los puertos 80, 8080, 21, 3001 y 3306 de forma transparente.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>3. ¿Por qué el volumen del catálogo web se monta en modo solo lectura (:ro) mientras que el contenedor FTP tiene permisos de lectura y escritura? Justifique según el Principio de Mínimo Privilegio.</h4>
+        <p>Siguiendo el <strong>Principio de Mínimo Privilegio (PoLP)</strong>, cada componente debe poseer únicamente las facultades indispensables para su rol. El catálogo web Apache/PHP únicamente debe leer las fotografías para servirlas al público; montarlo en modo <code>:ro</code> asegura que el kernel rechace cualquier llamada de escritura. Si un atacante lograra vulnerar la aplicación web mediante una inyección de código, no podrá subir web shells, modificar las fotos de los agricultores ni borrar archivos. La escritura queda delegada de forma exclusiva al contenedor <code>huerta_ftp</code>, el cual exige autenticación segura.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>4. ¿Cómo funciona el protocolo FTP en modo pasivo (PASV), por qué son indispensables las variables PASV_ADDRESS, PASV_MIN_PORT, PASV_MAX_PORT y por qué requiere exponer un rango de puertos en Docker?</h4>
+        <p>En FTP pasivo, el cliente inicia tanto el canal de control (puerto 21) como el canal de datos efímero para evitar bloqueos por cortafuegos. Dentro de Docker, el demonio FTP respondería por defecto con su IP interna de contenedor (ej. <code>172.18.0.4</code>), la cual es inalcanzable para los PCs clientes del aula. La directiva <code>PASV_ADDRESS</code> fuerza a vsftpd a anunciar la IP real de la VM. Las directivas <code>PASV_MIN_PORT</code> y <code>PASV_MAX_PORT</code> (21100-21110) restringen el canal de datos a un rango predecible de puertos que son mapeados explícitamente en el <code>docker-compose.yml</code>.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>5. ¿Qué ventajas arquitectónicas y operativas ofrece separar el almacenamiento de medios (segundo disco VDI) del sistema operativo y los contenedores de Docker?</h4>
+        <p>Aporta dos beneficios críticos: 1) <strong>Inmunidad ante agotamiento de disco (Disk Full):</strong> Si los productores saturan los 8 GB con fotos de alta resolución, solo se bloquearán nuevas subidas en <code>/mnt/huerta_fotos</code>, pero el disco raíz <code>/dev/sda1</code> continuará operativo, previniendo la caída de los logs del sistema, memoria swap y Docker daemon. 2) <strong>Desacoplamiento del ciclo de vida:</strong> El sistema operativo de la VM es reemplazable; si se corrompe Ubuntu, basta desacoplar el archivo VDI en VirtualBox y conectarlo a una nueva máquina virtual limpia sin perder ninguna foto.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>6. ¿Cuál es el propósito del usuario huerta_lector frente a huerta_user y qué riesgos de seguridad mitiga en un entorno colaborativo?</h4>
+        <p>Aplica control de acceso basado en roles (RBAC). <code>huerta_user</code> es el usuario operativo privado utilizado exclusivamente por el backend PHP con permisos de lectura y escritura (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>). En cambio, <code>huerta_lector</code> cuenta únicamente con el privilegio <code>GRANT SELECT</code>. Esto permite que los estudiantes y evaluadores del aula auditen el catálogo directamente desde la consola MySQL o DBeaver sin el riesgo de que un comando erróneo o malicioso (como <code>DROP TABLE</code> o <code>DELETE FROM productos</code>) destruya la información de la base de datos.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>7. ¿Cómo garantiza Uptime Kuma la detección proactiva de fallas diferenciadas entre una caída del motor MySQL (sonda TCP) y una caída de Apache/PHP (sonda HTTP)?</h4>
+        <p>Uptime Kuma supervisa diferentes capas del modelo OSI de forma simultánea. La sonda HTTP evalúa la capa de aplicación (recibir código <code>200 OK</code> en el puerto 80), mientras que la sonda TCP evalúa la capa de transporte (completar el <em>handshake</em> TCP en el socket 3306 de MySQL). Si se detiene el contenedor <code>huerta_db</code>, la sonda TCP cambia instantáneamente a <strong>ROJO (DOWN)</strong> mientras el servidor Apache puede continuar respondiendo. Esto permite al administrador aislar de inmediato la causa raíz de la falla técnica sin conjeturas.</p>
+    </div>
+
+    <div class="qa-card">
+        <h4>8. ¿Cuál es el comportamiento técnico de la directiva restart: unless-stopped en Docker Compose ante fallos inesperados y ante un reinicio del host (sudo reboot)?</h4>
+        <p>Instruye al motor de Docker para que reanime automáticamente cualquier contenedor cuyo proceso principal finalice de forma anómala (crash con código distinto de 0) y para que levante los contenedores en el arranque del sistema operativo tras un <code>sudo reboot</code> o corte de energía. La diferencia clave con <code>restart: always</code> es que <code>unless-stopped</code> respeta las detenciones explícitas del operador: si un contenedor fue detenido manualmente con <code>docker compose stop</code> antes de reiniciar la VM, permanecerá apagado al reiniciar, facilitando tareas de mantenimiento programado.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

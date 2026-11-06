@@ -1,0 +1,68 @@
+services:
+  web:
+    build: ./web
+    container_name: huerta_web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./web/src:/var/www/html
+      - /mnt/huerta_fotos/imagenes:/var/www/html/imagenes:ro
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: huerta_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_segura
+      MYSQL_DATABASE: HUERTA_DIGITAL
+      MYSQL_USER: huerta_user
+      MYSQL_PASSWORD: huerta_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: huerta_pma
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      - db
+
+  ftp:
+    image: fauria/vsftpd
+    container_name: huerta_ftp
+    restart: unless-stopped
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    environment:
+      FTP_USER: productor
+      FTP_PASS: clave_ftp_segura
+      PASV_ADDRESS: 192.168.1.177 # IP real en Modo Puente de tu VM
+      PASV_MIN_PORT: 21100
+      PASV_MAX_PORT: 21110
+    volumes:
+      - /mnt/huerta_fotos/imagenes:/home/vsftpd/productor/imagenes
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: huerta_kuma
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime_data:/app/data
+
+volumes:
+  db_data:
+  uptime_data:

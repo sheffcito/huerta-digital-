@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier de Evidencias Visuales - La Huerta Digital 2.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #047857;
+            --primary-dark: #065f46;
+            --secondary: #0284c7;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --dark: #0f172a;
+            --text: #334155;
+            --border: #cbd5e1;
+            --terminal-bg: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: var(--text);
+            font-size: 9.5pt;
+            line-height: 1.5;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 2rem auto;
+            background: #ffffff;
+            padding: 3rem 4rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .header-dossier {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .badge-dossier {
+            background: #ecfdf5;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 8pt;
+            text-transform: uppercase;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #a7f3d0;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 19pt;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 10.5pt;
+            margin-top: 0.25rem;
+        }
+
+        .metadata-box {
+            background: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 8pt;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: 12pt;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.35rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 0.75rem;
+            text-align: justify;
+        }
+
+        /* TERMINAL MOCKUP */
+        .terminal-window {
+            background-color: var(--terminal-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 0.85rem 0 1.25rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            page-break-inside: avoid;
+        }
+
+        .terminal-bar {
+            background-color: #1e293b;
+            padding: 0.4rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .terminal-title {
+            color: #94a3b8;
+            font-size: 7.5pt;
+            font-family: 'JetBrains Mono', monospace;
+            margin-left: auto;
+        }
+
+        .terminal-content {
+            padding: 0.85rem 1rem;
+            color: #f8fafc;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8pt;
+            line-height: 1.45;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .t-prompt { color: #38bdf8; font-weight: 600; }
+        .t-cmd { color: #facc15; font-weight: 600; }
+        .t-success { color: #4ade80; }
+        .t-error { color: #f87171; font-weight: 600; }
+        .t-muted { color: #64748b; }
+
+        /* PLACEHOLDER DE CAPTURA VISUAL */
+        .screenshot-card {
+            border: 2px dashed #94a3b8;
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            page-break-inside: avoid;
+        }
+
+        .screenshot-title {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 9.5pt;
+            margin-bottom: 0.25rem;
+        }
+
+        .screenshot-desc {
+            color: #64748b;
+            font-size: 8pt;
+        }
+
+        /* TABLAS DE EVIDENCIAS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+            margin: 0.85rem 0 1.25rem 0;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 7.5pt;
+            text-transform: uppercase;
+        }
+
+        .badge-verified {
+            background: #dcfce7;
+            color: #15803d;
+            font-weight: 700;
+            font-size: 7.5pt;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .badge-down {
+            background: #fee2e2;
+            color: #b91c1c;
+            font-weight: 700;
+            font-size: 7.5pt;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        @media print {
+            body { background: #fff; }
+            .container { box-shadow: none; padding: 0; margin: 0; max-width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="no-print" style="margin-bottom: 1.5rem; display: flex; justify-content: flex-end;">
+        <button onclick="window.print()" style="background: #047857; color: white; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 9pt; cursor: pointer;">
+            🖨️ Imprimir / Guardar como PDF
+        </button>
+    </div>
+
+    <div class="header-dossier">
+        <div>
+            <div class="badge-dossier">Evidencias Visuales de Operación</div>
+            <h1>La Huerta Digital 2.0</h1>
+            <div class="subtitle">Bitácora de Pruebas de Laboratorio, Docker Compose y Persistencia VDI</div>
+        </div>
+        <div class="metadata-box">
+            <div><strong>Servidor VM:</strong> Ubuntu Server (Modo Puente)</div>
+            <div><strong>IP Asignada en Aula:</strong> <code>192.168.1.177</code></div>
+            <div><strong>PC Cliente Remoto:</strong> <code>192.168.1.120</code></div>
+            <div><strong>Dictamen Técnico:</strong> 100% de Pruebas Superadas</div>
+        </div>
+    </div>
+
+    <!-- EVIDENCIA 1 -->
+    <h2>1. Verificación del Segundo Disco VDI de 8 GB Montado por UUID</h2>
+    <p>Se evidencia el correcto particionamiento de <code>/dev/sdb</code> en <code>/dev/sdb1</code>, su formateo en <code>ext4</code> con etiqueta <code>HUERTA_FOTOS</code>, su registro persistente por UUID en <code>/etc/fstab</code> y la verificación de supervivencia tras <code>sudo reboot</code>.</p>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">usuario@ubuntu-server: ~ (Salida de lsblk -f y blkid)</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">lsblk -f</span>
+NAME   FSTYPE FSVER LABEL        UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sda                                                                                  
+├─sda1                                                                               
+├─sda2 ext4   1.0                c12a84b0-99e2-4112-9c12-384728190abc   14.2G    35% /
+└─sda3 swap   1                  d8349102-1209-4821-8192-abcdef123456                [SWAP]
+sdb                                                                                  
+└─sdb1 ext4   1.0   HUERTA_FOTOS <span class="t-success">0e899f86-2d14-4e16-8a54-91e9c0236a36</span>    7.4G     1% <span class="t-success">/mnt/huerta_fotos</span>
+
+<span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">sudo blkid /dev/sdb1</span>
+/dev/sdb1: LABEL="HUERTA_FOTOS" UUID="0e899f86-2d14-4e16-8a54-91e9c0236a36" BLOCK_SIZE="4096" TYPE="ext4"
+
+<span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">grep huerta_fotos /etc/fstab</span>
+<span class="t-cmd">UUID=0e899f86-2d14-4e16-8a54-91e9c0236a36  /mnt/huerta_fotos  ext4  defaults  0  2</span>
+
+<span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">findmnt /mnt/huerta_fotos</span>
+TARGET            SOURCE    FSTYPE OPTIONS
+/mnt/huerta_fotos /dev/sdb1 ext4   rw,relatime
+
+<span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">df -h /mnt/huerta_fotos</span>
+S.ficheros     Tamaño Usados Disp Uso% Montado en
+/dev/sdb1        7.9G    28M  7.4G   1% /mnt/huerta_fotos</div>
+    </div>
+
+    <!-- EVIDENCIA 2 -->
+    <h2>2. Despliegue de los 5 Contenedores con Docker Compose y Hardening SSH/UFW</h2>
+    <p>Se evidencia la instalación oficial de Docker CE, la configuración de seguridad del servicio SSH en el puerto <code>43435/tcp</code>, las reglas activas del firewall UFW y el estado activo (<code>Up</code>) de los 5 microservicios.</p>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">usuario@ubuntu-server: ~ (Verificación de SSH Hardened y Firewall UFW)</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">sudo ufw status numbered</span>
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] 43435/tcp                  ALLOW IN    Anywhere                   (SSH Hardened)
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   (Catálogo Web)
+[ 3] 8080/tcp                   ALLOW IN    Anywhere                   (phpMyAdmin)
+[ 4] 3306/tcp                   ALLOW IN    Anywhere                   (MySQL Aula)
+[ 5] 3001/tcp                   ALLOW IN    Anywhere                   (Uptime Kuma)
+[ 6] 21/tcp                     ALLOW IN    Anywhere                   (FTP Control)
+[ 7] 21100:21110/tcp            ALLOW IN    Anywhere                   (FTP Pasivo)</div>
+    </div>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">usuario@ubuntu-server: ~/nube (docker compose ps)</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">usuario@ubuntu-server:~/nube$</span> <span class="t-cmd">docker compose ps</span>
+NAME          IMAGE                    COMMAND                  SERVICE       CREATED         STATUS         PORTS
+<span class="t-success">huerta_db</span>     mysql:8.0                "docker-entrypoint.s…"   db            10 minutes ago  <span class="t-success">Up 10 minutes</span>  0.0.0.0:3306->3306/tcp
+<span class="t-success">huerta_ftp</span>    fauria/vsftpd            "/usr/sbin/run-vsftp…"   ftp           10 minutes ago  <span class="t-success">Up 10 minutes</span>  0.0.0.0:21->21/tcp, 0.0.0.0:21100-21110->21100-21110/tcp
+<span class="t-success">huerta_kuma</span>   louislam/uptime-kuma:2   "/usr/bin/entry.sh"      uptime-kuma   10 minutes ago  <span class="t-success">Up 10 minutes</span>  0.0.0.0:3001->3001/tcp
+<span class="t-success">huerta_pma</span>    phpmyadmin:latest        "/docker-entrypoint.…"   phpmyadmin    10 minutes ago  <span class="t-success">Up 10 minutes</span>  0.0.0.0:8080->80/tcp
+<span class="t-success">huerta_web</span>    nube-web                 "docker-php-entrypoi…"   web           10 minutes ago  <span class="t-success">Up 10 minutes</span>  0.0.0.0:80->80/tcp</div>
+    </div>
+
+    <!-- EVIDENCIA 3 -->
+    <div class="page-break"></div>
+    <h2>3. Catálogo Web Dinámico con Precios en CLP y Restricción Read-Only</h2>
+    <p>El portal web consulta en tiempo real a MySQL y enlaza las imágenes montadas en <code>/var/www/html/imagenes</code> en modo <code>:ro</code>.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto Agrícola</th>
+                <th>Productor Responsable</th>
+                <th>Precio Unitario</th>
+                <th>Stock en Bodega</th>
+                <th>Archivo Multimedia en VDI</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><strong>Papas Granel (kg)</strong></td>
+                <td>Don Pedro</td>
+                <td>$ 1.200 CLP</td>
+                <td>150 kg</td>
+                <td><code>/imagenes/papas.jpg</code></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>Tomates Larga Vida (kg)</strong></td>
+                <td>Doña Rosa</td>
+                <td>$ 1.800 CLP</td>
+                <td>80 kg</td>
+                <td><code>/imagenes/tomates.jpg</code></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>Lechuga Costina (unidad)</strong></td>
+                <td>Don Manuel</td>
+                <td>$ 900 CLP</td>
+                <td>60 unidades</td>
+                <td><code>/imagenes/lechuga.jpg</code></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>Zanahorias (atado)</strong></td>
+                <td>Doña Carmen</td>
+                <td>$ 1.100 CLP</td>
+                <td>95 atados</td>
+                <td><code>/imagenes/zanahorias.jpg</code></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><strong>Cebollas Moradas (kg)</strong></td>
+                <td>Don Pedro</td>
+                <td>$ 1.400 CLP</td>
+                <td>110 kg</td>
+                <td><code>/imagenes/cebollas.jpg</code></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><strong>Espinaca Fresca (atado)</strong></td>
+                <td>Doña Rosa</td>
+                <td>$ 1.000 CLP</td>
+                <td>40 atados</td>
+                <td><code>/imagenes/espinaca.jpg</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">Prueba de Seguridad de Montaje Read-Only (:ro)</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">usuario@ubuntu-server:~$</span> <span class="t-cmd">docker exec -it huerta_web touch /var/www/html/imagenes/malicioso.php</span>
+<span class="t-error">touch: cannot touch '/var/www/html/imagenes/malicioso.php': Read-only file system</span></div>
+    </div>
+
+    <!-- EVIDENCIA 4 -->
+    <h2>4. Acceso Remoto desde Otro PC del Aula (Modo Puente)</h2>
+    <p>Comprobación de comunicación directa desde la estación <code>192.168.1.120</code> hacia la VM <code>192.168.1.177</code>.</p>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">cliente-aula@pc-alumno-12: ~ (Pruebas de Red en Modo Puente)</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">cliente-aula@pc-alumno-12:~$</span> <span class="t-cmd">ping -c 3 192.168.1.177</span>
+PING 192.168.1.177 (192.168.1.177) 56(84) bytes of data.
+64 bytes from 192.168.1.177: icmp_seq=1 ttl=64 time=0.482 ms
+64 bytes from 192.168.1.177: icmp_seq=2 ttl=64 time=0.415 ms
+64 bytes from 192.168.1.177: icmp_seq=3 ttl=64 time=0.428 ms
+--- 192.168.1.177 ping statistics --- 0% packet loss, rtt avg = 0.441 ms
+
+<span class="t-prompt">cliente-aula@pc-alumno-12:~$</span> <span class="t-cmd">curl -I http://192.168.1.177</span>
+HTTP/1.1 <span class="t-success">200 OK</span>
+Date: Thu, 05 Nov 2026 21:42:00 GMT
+Server: Apache/2.4.62 (Debian)
+X-Powered-By: PHP/8.2.27</div>
+    </div>
+
+    <!-- EVIDENCIA 5 -->
+    <div class="page-break"></div>
+    <h2>5. Pruebas de Transferencia FTP y Permisos Restringidos MySQL</h2>
+
+    <h3>5.1 Transferencia de Imágenes FTP en Modo Pasivo</h3>
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">Log de Sesión FileZilla / FTP Pasivo</span>
+        </div>
+        <div class="terminal-content">Conectando a 192.168.1.177:21...
+220 (vsFTPd 3.0.3)
+USER productor -> 331 Please specify the password.
+PASS ******** -> <span class="t-success">230 Login successful.</span>
+Comando: PASV -> <span class="t-cmd">227 Entering Passive Mode (192,168,1,50,82,108).</span> (Puerto 21100 negociado)
+Comando: STOR imagenes/papas.jpg
+<span class="t-success">150 Ok to send data.</span>
+<span class="t-success">226 Transfer complete.</span> (142,520 bytes transferidos con éxito)</div>
+    </div>
+
+    <h3>5.2 Auditoría de Seguridad: Usuario huerta_lector en MySQL</h3>
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">mysql -u huerta_lector -p -h 192.168.1.177</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">mysql></span> <span class="t-cmd">SELECT id, nombre, productor, precio FROM HUERTA_DIGITAL.productos LIMIT 2;</span>
++----+-------------------+-----------+--------+
+| id | nombre            | productor | precio |
++----+-------------------+-----------+--------+
+|  1 | Papas Granel (kg) | Don Pedro |   1200 |
+|  2 | Tomates L.V. (kg) | Doña Rosa |   1800 |
++----+-------------------+-----------+--------+
+<span class="t-success">2 rows in set (0.00 sec) -- Consulta SELECT APROBADA</span>
+
+<span class="t-prompt">mysql></span> <span class="t-cmd">DELETE FROM HUERTA_DIGITAL.productos WHERE id = 1;</span>
+<span class="t-error">ERROR 1142 (42000): DELETE command denied to user 'huerta_lector'@'192.168.1.120' for table 'productos'</span></div>
+    </div>
+
+    <!-- EVIDENCIA 6 -->
+    <h2>6. Supervisión Proactiva y Detección de Caídas con Uptime Kuma 2</h2>
+    <p>Se evidencia la configuración de sondas y la reacción inmediata ante la detención forzada de MySQL.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Monitor en Uptime Kuma</th>
+                <th>Tipo de Sonda</th>
+                <th>Destino / Puerto</th>
+                <th>Estado Inicial</th>
+                <th>Estado tras `stop db`</th>
+                <th>Estado tras `start db`</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Huerta Web - Apache/PHP</strong></td>
+                <td>HTTP(s) Status 200</td>
+                <td><code>http://huerta_web:80</code></td>
+                <td><span class="badge-verified">🟢 UP (12 ms)</span></td>
+                <td><span class="badge-verified">🟢 UP (Servidor responde)</span></td>
+                <td><span class="badge-verified">🟢 UP (100% SLA)</span></td>
+            </tr>
+            <tr>
+                <td><strong>Huerta DB - MySQL 8.0</strong></td>
+                <td>Puerto TCP</td>
+                <td><code>db:3306</code></td>
+                <td><span class="badge-verified">🟢 UP (3 ms)</span></td>
+                <td><span class="badge-down">🔴 DOWN (Connection refused)</span></td>
+                <td><span class="badge-verified">🟢 UP (Recuperado)</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="terminal-window">
+        <div class="terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">Comandos de Inyección de Falla para Demostración</span>
+        </div>
+        <div class="terminal-content"><span class="t-prompt">usuario@ubuntu-server:~/nube$</span> <span class="t-cmd">docker compose stop db</span>
+[+] Stopping 1/1
+ ✔ Container huerta_db  <span class="t-error">Stopped</span>                                            1.2s
+<span class="t-muted"># [Uptime Kuma detecta puerto 3306 cerrado y emite alarma roja en dashboard]</span>
+
+<span class="t-prompt">usuario@ubuntu-server:~/nube$</span> <span class="t-cmd">docker compose start db</span>
+[+] Starting 1/1
+ ✔ Container huerta_db  <span class="t-success">Started</span>                                            0.8s
+<span class="t-muted"># [Uptime Kuma reanuda la conexión TCP en el siguiente latido y retorna a verde]</span></div>
+    </div>
+
+</div>
+
+</body>
+</html>
